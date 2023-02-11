@@ -38,10 +38,7 @@ public class RunIntake extends CommandBase {
    */
   @Override
   public void execute() {
-    // m_indexer.setKickerPercentOutput(-0.25);
-    // m_indexer.setIndexerPercentOutput(0.5);
     m_intake.setIntakePercentOutput(0.7);
-    m_intake.setIntakeRollerPercentOutput(0.7);
   }
 
   /**
@@ -49,7 +46,6 @@ public class RunIntake extends CommandBase {
    */
   @Override
   public void end(boolean interrupted) {
-    // m_indexer.setKickerPercentOutput(0);
     m_intake.setIntakePiston(false);
     m_intake.setIntakePercentOutput(0);
     m_intake.setIntakeRollerPercentOutput(0);

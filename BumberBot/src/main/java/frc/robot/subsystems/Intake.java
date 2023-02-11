@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -20,8 +21,8 @@ public class Intake extends SubsystemBase {
 
   // Intake motor setup
 
-  private TalonSRX[] intakeMotors = {
-    new TalonSRX(Constants.IntakeConstants.intakeMotor),
+  private TalonFX[] intakeMotors = {
+    new TalonFX(Constants.IntakeConstants.intakeMotor),
   };
 
   // Intake piston setup
@@ -35,7 +36,7 @@ public class Intake extends SubsystemBase {
   public Intake() {
     // Motor configuration
 
-    for (TalonSRX intakeMotor : intakeMotors) {
+    for (TalonFX intakeMotor : intakeMotors) {
       intakeMotor.configFactoryDefault();
       intakeMotor.setNeutralMode(NeutralMode.Coast);
       intakeMotor.configOpenloopRamp(0.5);
@@ -89,4 +90,7 @@ public class Intake extends SubsystemBase {
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
+
+public void setIntakeRollerPercentOutput(double d) {
+}
 }

@@ -5,16 +5,27 @@
 package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Intake;
 
 public class IntakePiston extends CommandBase {
+  public final Intake m_intake;
+  public boolean extend;
+
   /** Creates a new IntakePiston. */
-  public IntakePiston() {
+  public IntakePiston(Intake intake, boolean extend) {
+    m_intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(intake);
+    this.extend = extend;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    if (m_intake.getIntakePistonExtendStatus() != extend) {
+      m_intake.setIntakePiston(extend);
+    }
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -27,6 +38,6 @@ public class IntakePiston extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

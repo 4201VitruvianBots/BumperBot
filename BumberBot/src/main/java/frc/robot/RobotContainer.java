@@ -9,8 +9,11 @@ import frc.robot.Constants.DriveTrainConstants.DriveTrainNeutralMode;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.DriveTrain.SetArcadeDrive;
+import frc.robot.commands.intake.RunIntake;
+import frc.robot.commands.intake.RunReverseIntake;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
@@ -30,7 +33,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_driveTrain = new DriveTrain();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
+  private final Intake m_Intake = new Intake();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -79,6 +82,13 @@ public class RobotContainer {
       xBoxTriggers[i] = new JoystickButton(xBoxController, (i + 1));
     for (int i = 0; i < xBoxPOVTriggers.length; i++)
       xBoxPOVTriggers[i] = new POVButton(xBoxController, (i * 90));
+
+      xBoxLeftTrigger =
+      new Trigger(
+          () -> xBoxController.getLeftTriggerAxis() > 0.1); // getTrigger());// getRawAxis(2));
+  xBoxRightTrigger = new Trigger(() -> xBoxController.getRightTriggerAxis() > 0.1);
+  xBoxLeftTrigger.whileTrue(new RunIntake(m_Intake));
+  xBoxRightTrigger.whileTrue(new RunReverseIntake(m_Intake)); 
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
