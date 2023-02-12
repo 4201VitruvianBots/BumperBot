@@ -87,8 +87,8 @@ public class RobotContainer {
       new Trigger(
           () -> xBoxController.getLeftTriggerAxis() > 0.1); // getTrigger());// getRawAxis(2));
   xBoxRightTrigger = new Trigger(() -> xBoxController.getRightTriggerAxis() > 0.1);
-  xBoxLeftTrigger.whileTrue(new RunIntake(m_Intake));
-  xBoxRightTrigger.whileTrue(new RunReverseIntake(m_Intake)); 
+  xBoxLeftTrigger.whileTrue(new RunIntake(m_Intake,0.5));
+  xBoxRightTrigger.whileTrue(new RunReverseIntake(m_Intake,-0.4)); 
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

@@ -11,15 +11,19 @@ import frc.robot.subsystems.Intake;
 public class RunReverseIntake extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Intake m_intake;
+  private double m_percentOutput;
 
   // private final Indexer m_indexer;
 
   /**
    * @param intake The intake used by this command
+ * @param d
    * @param indexer The indexer used by this command
    */
-  public RunReverseIntake(Intake intake) {
+  public RunReverseIntake(Intake intake, double percentOutput) {
     m_intake = intake;
+    m_percentOutput = percentOutput; 
+    
     // m_indexer = indexer;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
@@ -38,7 +42,7 @@ public class RunReverseIntake extends CommandBase {
    */
   @Override
   public void execute() {
-    m_intake.setIntakePercentOutput(-0.7);
+    m_intake.setIntakePercentOutput(m_percentOutput);
   }
 
   /**

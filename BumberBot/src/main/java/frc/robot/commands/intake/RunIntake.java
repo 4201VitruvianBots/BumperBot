@@ -11,6 +11,7 @@ import frc.robot.subsystems.Intake;
 public class RunIntake extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Intake m_intake;
+  private double m_percentOutput; 
 
   // private final Indexer m_indexer;
 
@@ -18,8 +19,9 @@ public class RunIntake extends CommandBase {
    * @param intake The intake used by this command
    * @param indexer The indexer used by this command
    */
-  public RunIntake(Intake intake) {
+  public RunIntake(Intake intake, double PercentOutput) {
     m_intake = intake;
+    m_percentOutput = PercentOutput; 
     // m_indexer = indexer;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
@@ -38,7 +40,7 @@ public class RunIntake extends CommandBase {
    */
   @Override
   public void execute() {
-    m_intake.setIntakePercentOutput(0.7);
+    m_intake.setIntakePercentOutput(m_percentOutput);
   }
 
   /**
@@ -48,7 +50,6 @@ public class RunIntake extends CommandBase {
   public void end(boolean interrupted) {
     m_intake.setIntakePiston(false);
     m_intake.setIntakePercentOutput(0);
-    m_intake.setIntakeRollerPercentOutput(0);
     m_intake.setIntakeState(false);
   }
 

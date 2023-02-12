@@ -38,13 +38,12 @@ public class Intake extends SubsystemBase {
 
     for (TalonFX intakeMotor : intakeMotors) {
       intakeMotor.configFactoryDefault();
-      intakeMotor.setNeutralMode(NeutralMode.Coast);
+      intakeMotor.setNeutralMode(NeutralMode.Brake);
       intakeMotor.configOpenloopRamp(0.5);
       intakeMotor.setStatusFramePeriod(1, 100);
       intakeMotor.setStatusFramePeriod(2, 100);
     }
     intakeMotors[0].setInverted(false);
-    intakeMotors[1].setInverted(true);
 
     // SmartDashboard.putData("Intake Subsystem", this);
   }
@@ -60,9 +59,9 @@ public class Intake extends SubsystemBase {
   }
 
   /** @return A boolean value based on the intake's piston status (up or down) */
-  public boolean getIntakePistonExtendStatus() {
-    return intakePiston.get() == DoubleSolenoid.Value.kForward;
-  }
+  // public boolean getIntakePistonExtendStatus() {
+  //   return intakePiston.get() == DoubleSolenoid.Value.kForward;
+  // }
 
   /** Sets intake piston's states to forward and backward */
   public void setIntakePiston(boolean state) {
@@ -77,7 +76,6 @@ public class Intake extends SubsystemBase {
   /** updates intake data on to the dashboard */
   public void updateSmartDashboard() {
     SmartDashboard.putBoolean("Intake State", getIntakeState());
-    SmartDashboard.putBoolean("Pistons", getIntakePistonExtendStatus());
   }
 
   @Override
