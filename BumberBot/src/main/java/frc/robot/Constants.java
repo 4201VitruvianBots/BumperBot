@@ -38,10 +38,10 @@ public final class Constants {
 
   public static class DriveTrainConstants { 
     public static final int pigeonID = 9; 
-    public static final int FrontLeftDriveMotor = 21; 
+    public static final int FrontLeftDriveMotor = 20; 
     public static final int FrontRightDriveMotor = 22; 
-    public static final int BackLeftDriveMotor = 23; 
-    public static final int BackRightDriveMotor = 24; 
+    public static final int BackLeftDriveMotor = 21; 
+    public static final int BackRightDriveMotor = 23; 
     
     public enum DriveTrainNeutralMode {
       BRAKE,

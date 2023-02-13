@@ -61,8 +61,8 @@ public class RobotContainer {
     m_driveTrain.setDefaultCommand(
         new SetArcadeDrive(
             m_driveTrain,
-            () -> -leftJoystick.getRawAxis(1),
-            () -> -rightJoystick.getRawAxis(0)));
+            () -> leftJoystick.getRawAxis(1),
+            () -> rightJoystick.getRawAxis(0)));
   }
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
