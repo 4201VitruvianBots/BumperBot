@@ -101,7 +101,6 @@ public class RobotContainer {
   }
 
   public void disabledInit() {
-    m_driveTrain.setDriveTrainNeutralMode(DriveTrainNeutralMode.COAST);
     m_driveTrain.setMotorArcadeDrive(0, 0);
   }
 
@@ -109,16 +108,12 @@ public class RobotContainer {
   }
 
   public void teleopInit() {
-    m_driveTrain.setDriveTrainNeutralMode(DriveTrainNeutralMode.BRAKE);
   }
 
   public void teleopPeriodic() {
   }
 
   public void autonomousInit() {
-    if (RobotBase.isReal()) {
-      m_driveTrain.resetEncoders();
-    }
   }
 
   public void autonomousPeriodic() {
