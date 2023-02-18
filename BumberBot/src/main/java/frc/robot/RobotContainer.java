@@ -8,6 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.DriveTrainConstants.DriveTrainNeutralMode;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.DriveTrain.ToggleControllerDrive;
 import frc.robot.commands.DriveTrain.SetArcadeDrive;
 import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.intake.RunReverseIntake;
@@ -17,6 +18,7 @@ import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -58,12 +60,21 @@ public class RobotContainer {
   }
 
   public void initializeSubsystems() {
+    if(m_driveTrain.getControllerDrive()){
+      m_driveTrain.setDefaultCommand(
+        new SetArcadeDrive(
+            m_driveTrain,
+             () -> xBoxController.getLeftY(),
+             () -> xBoxController.getRightX()));    
+      }
+      else{ 
     m_driveTrain.setDefaultCommand(
         new SetArcadeDrive(
             m_driveTrain,
             () -> leftJoystick.getRawAxis(1),
             () -> rightJoystick.getRawAxis(0)));
   }
+}
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
    * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
@@ -89,6 +100,7 @@ public class RobotContainer {
   xBoxRightTrigger = new Trigger(() -> xBoxController.getRightTriggerAxis() > 0.1);
   xBoxLeftTrigger.whileTrue(new RunIntake(m_Intake,0.5));
   xBoxRightTrigger.whileTrue(new RunReverseIntake(m_Intake,-0.4)); 
+  SmartDashboard.putData(new ToggleControllerDrive(m_driveTrain)); //Adding Button To ToggleControllerDrive
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

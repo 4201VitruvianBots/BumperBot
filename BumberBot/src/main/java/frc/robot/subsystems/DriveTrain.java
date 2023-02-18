@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveTrainConstants.DriveTrainNeutralMode;
@@ -18,6 +19,7 @@ import frc.robot.Constants.DriveTrainConstants.DriveTrainNeutralMode;
 public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
   double m_leftOutput, m_rightOutput;
+  boolean m_controllerDrive = false; 
 
   private final Pigeon2 pigeon = new Pigeon2(Constants.DriveTrainConstants.pigeonID, "rio");
   private double lastYaw = 0;
@@ -62,6 +64,13 @@ public class DriveTrain extends SubsystemBase {
   // setMotorTankDrive(leftOutput, rightOutput);
   }
 
+  public boolean getControllerDrive(){
+    return m_controllerDrive; 
+  }
+
+  public void ToggleControllerDrive(){
+    m_controllerDrive = !m_controllerDrive; 
+  }
 
   @Override
   public void periodic() {
