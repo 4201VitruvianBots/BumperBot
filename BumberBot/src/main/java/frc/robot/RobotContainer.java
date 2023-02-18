@@ -9,8 +9,9 @@ import frc.robot.Constants.DriveTrainConstants.DriveTrainNeutralMode;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.DriveTrain.SetArcadeDrive;
-import frc.robot.commands.intake.RunIntake;
-import frc.robot.commands.intake.RunReverseIntake;
+import frc.robot.commands.intake.IntakeCone;
+import frc.robot.commands.intake.IntakeCube;
+import frc.robot.commands.intake.IntakePiston;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
@@ -87,8 +88,11 @@ public class RobotContainer {
       new Trigger(
           () -> xBoxController.getLeftTriggerAxis() > 0.1); // getTrigger());// getRawAxis(2));
   xBoxRightTrigger = new Trigger(() -> xBoxController.getRightTriggerAxis() > 0.1);
-  xBoxLeftTrigger.whileTrue(new RunIntake(m_Intake,0.5));
-  xBoxRightTrigger.whileTrue(new RunReverseIntake(m_Intake,-0.4)); 
+  xBoxLeftTrigger.whileTrue(new IntakePiston(m_Intake,true));
+  xBoxRightTrigger.whileTrue(new IntakePiston(m_Intake,false));
+  xBoxTriggers[0].whileTrue(new IntakeCube(m_Intake, 0.5)); //Percentoutput is turned to negative in the command
+  xBoxTriggers[2].whileTrue(new IntakeCone(m_Intake, 0.95)); //Shoot Cube Button
+  xBoxTriggers[3].whileTrue(new IntakeCone(m_Intake, 0.5)); 
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

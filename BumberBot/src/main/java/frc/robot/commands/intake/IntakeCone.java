@@ -8,22 +8,20 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
 /** An example command that uses an example subsystem. */
-public class RunReverseIntake extends CommandBase {
+public class IntakeCone extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Intake m_intake;
-  private double m_percentOutput;
+  private double m_percentOutput; 
 
   // private final Indexer m_indexer;
 
   /**
    * @param intake The intake used by this command
- * @param d
    * @param indexer The indexer used by this command
    */
-  public RunReverseIntake(Intake intake, double percentOutput) {
+  public IntakeCone(Intake intake, double PercentOutput) {
     m_intake = intake;
-    m_percentOutput = percentOutput; 
-    
+    m_percentOutput = PercentOutput; 
     // m_indexer = indexer;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
@@ -32,8 +30,6 @@ public class RunReverseIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_intake.setIntakePiston(true);
-    m_intake.setIntakeState(true);
   }
 
   /**
@@ -50,10 +46,7 @@ public class RunReverseIntake extends CommandBase {
    */
   @Override
   public void end(boolean interrupted) {
-    m_intake.setIntakePiston(false);
     m_intake.setIntakePercentOutput(0);
-    m_intake.setIntakeRollerPercentOutput(0);
-    m_intake.setIntakeState(false);
   }
 
   // Returns true when the command should end.

@@ -55,4 +55,8 @@ public final class Constants {
     public static final int intakeMotor = 31; 
     public static final int encoderUnitsPerRotation = 2048;
   }
+
+  public static class VisionConstants{ 
+    public static String VISION_SERVER_IP = "10.42.1.12";
+  }
 }

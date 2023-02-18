@@ -42,6 +42,8 @@ public class Intake extends SubsystemBase {
       intakeMotor.configOpenloopRamp(0.5);
       intakeMotor.setStatusFramePeriod(1, 100);
       intakeMotor.setStatusFramePeriod(2, 100);
+      intakeMotor.configVoltageCompSaturation(10);
+      intakeMotor.enableVoltageCompensation(true);
     }
     intakeMotors[0].setInverted(false);
 
@@ -59,9 +61,9 @@ public class Intake extends SubsystemBase {
   }
 
   /** @return A boolean value based on the intake's piston status (up or down) */
-  // public boolean getIntakePistonExtendStatus() {
-  //   return intakePiston.get() == DoubleSolenoid.Value.kForward;
-  // }
+   public boolean getIntakePistonExtendStatus() {
+     return intakePiston.get() == DoubleSolenoid.Value.kForward;
+   }
 
   /** Sets intake piston's states to forward and backward */
   public void setIntakePiston(boolean state) {
