@@ -5,15 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.Constants.DriveTrainConstants.DriveTrainNeutralMode;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.DriveTrain.SetArcadeDrive;
-import frc.robot.commands.intake.IntakeCone;
-import frc.robot.commands.intake.IntakeCube;
-import frc.robot.commands.intake.IntakePiston;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.intake.RunIntake;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -32,23 +24,18 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain m_driveTrain = new DriveTrain();
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final Intake m_Intake = new Intake();
+  private final Intake m_intake = new Intake();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
-
   static Joystick leftJoystick = new Joystick(Constants.USB.leftJoystick);
 
   static Joystick rightJoystick = new Joystick(Constants.USB.rightJoystick);
-  static XboxController xBoxController = new XboxController(Constants.USB.xBoxController);
+  public CommandXboxController xboxController = new CommandXboxController(Constants.USB.xBoxController);
 
-  public Trigger[] leftTriggers = new Trigger[2];
-  public Trigger[] rightTriggers = new Trigger[2];
-  public Trigger[] xBoxTriggers = new Trigger[10];
-  public Trigger[] xBoxPOVTriggers = new Trigger[4];
+  public Trigger[] leftJoystickTriggers = new Trigger[2]; // left joystick buttons
+  public Trigger[] rightJoystickTriggers = new Trigger[2]; // right joystick buttons
+
+
 
   public Trigger xBoxLeftTrigger, xBoxRightTrigger;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -59,11 +46,6 @@ public class RobotContainer {
   }
 
   public void initializeSubsystems() {
-    m_driveTrain.setDefaultCommand(
-        new SetArcadeDrive(
-            m_driveTrain,
-            () -> -leftJoystick.getRawAxis(1),
-            () -> -rightJoystick.getRawAxis(0)));
   }
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -75,24 +57,13 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() { // TODO: Replace Joystick Button?
-    for (int i = 0; i < leftTriggers.length; i++)
-      leftTriggers[i] = new JoystickButton(leftJoystick, (i + 1));
-    for (int i = 0; i < rightTriggers.length; i++)
-      rightTriggers[i] = new JoystickButton(rightJoystick, (i + 1));
-    for (int i = 0; i < xBoxTriggers.length; i++)
-      xBoxTriggers[i] = new JoystickButton(xBoxController, (i + 1));
-    for (int i = 0; i < xBoxPOVTriggers.length; i++)
-      xBoxPOVTriggers[i] = new POVButton(xBoxController, (i * 90));
+    for (int i = 0; i < leftJoystickTriggers.length; i++)
+    leftJoystickTriggers[i] = new JoystickButton(leftJoystick, (i + 1));
+  for (int i = 0; i < rightJoystickTriggers.length; i++)
+    rightJoystickTriggers[i] = new JoystickButton(rightJoystick, (i + 1));
 
-      xBoxLeftTrigger =
-      new Trigger(
-          () -> xBoxController.getLeftTriggerAxis() > 0.1); // getTrigger());// getRawAxis(2));
-  xBoxRightTrigger = new Trigger(() -> xBoxController.getRightTriggerAxis() > 0.1);
-  xBoxLeftTrigger.whileTrue(new IntakePiston(m_Intake,true));
-  xBoxRightTrigger.whileTrue(new IntakePiston(m_Intake,false));
-  xBoxTriggers[0].whileTrue(new IntakeCube(m_Intake, 0.5)); //Percentoutput is turned to negative in the command
-  xBoxTriggers[2].whileTrue(new IntakeCone(m_Intake, 0.95)); //Shoot Cube Button
-  xBoxTriggers[3].whileTrue(new IntakeCone(m_Intake, 0.5)); 
+    xboxController.a().whileTrue(new RunIntake(m_intake, 0.8)); 
+    xboxController.b().whileTrue(new RunIntake(m_intake, -0.8)); 
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -101,29 +72,22 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return null;
   }
 
   public void disabledInit() {
-    m_driveTrain.setDriveTrainNeutralMode(DriveTrainNeutralMode.COAST);
-    m_driveTrain.setMotorArcadeDrive(0, 0);
   }
 
   public void disabledPeriodic() {
   }
 
   public void teleopInit() {
-    m_driveTrain.setDriveTrainNeutralMode(DriveTrainNeutralMode.BRAKE);
   }
 
   public void teleopPeriodic() {
   }
 
-  public void autonomousInit() {
-    if (RobotBase.isReal()) {
-      m_driveTrain.resetEncoders();
-    }
-  }
+  public void autonomousInit() {}
 
   public void autonomousPeriodic() {
   }

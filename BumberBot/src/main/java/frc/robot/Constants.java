@@ -19,44 +19,13 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
 
-  public final class USB {
+  public static final class USB {
     public static final int leftJoystick = 0;
     public static final int rightJoystick = 1;
     public static final int xBoxController = 2;
-
-    
   }
-
-  public static final class Pneumatics {
-    public static final int pcmOne = 11;
-    public static final PneumaticsModuleType pcmType =
-        PneumaticsModuleType.CTREPCM; // CTREPCM, REVPH
-
-    public static final int intakePistonForward = pcmType == PneumaticsModuleType.CTREPCM ? 0 : 0;
-    public static final int intakePistonReverse = pcmType == PneumaticsModuleType.CTREPCM ? 1 : 1;
-  }
-
-  public static class DriveTrainConstants { 
-    public static final int pigeonID = 9; 
-    public static final int FrontLeftDriveMotor = 21; 
-    public static final int FrontRightDriveMotor = 22; 
-    public static final int BackLeftDriveMotor = 23; 
-    public static final int BackRightDriveMotor = 24; 
-    
-    public enum DriveTrainNeutralMode {
-      BRAKE,
-      COAST,
-      /** Master motors brake, follower motors coast */
-      HALF_BRAKE
-    }
-  }
-  
-  public static class IntakeConstants { 
-    public static final int intakeMotor = 31; 
-    public static final int encoderUnitsPerRotation = 2048;
-  }
-
-  public static class VisionConstants{ 
-    public static String VISION_SERVER_IP = "10.42.1.12";
+  //Intake is just a placeholder subsystem
+  public static final class Intake{ 
+    public static final int intakeMotor = 30; //This is where the CAN ID of the falcon goes
   }
 }
