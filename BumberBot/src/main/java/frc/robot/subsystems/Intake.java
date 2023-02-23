@@ -34,7 +34,7 @@ public class Intake extends SubsystemBase {
       intakeMotor.configVoltageCompSaturation(10);
       intakeMotor.enableVoltageCompensation(true);
     SmartDashboard.putData("Intake Subsystem", this);
-      intakeMotor.setInverted(TalonFXInvertType.Clockwise); // change this to TalonFXInvertType.CounterClokwise if motor is running backwards
+      intakeMotor.setInverted(TalonFXInvertType.Clockwise); // change this to TalonFXInvertType.CounterClockwise if motor is running backwards
   }
   /** sets the amount of power going to the intake */
   public void setIntakePercentOutput(double value) {
@@ -56,7 +56,4 @@ public class Intake extends SubsystemBase {
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
-
-public void setIntakeRollerPercentOutput(double d) {
-}
 }
