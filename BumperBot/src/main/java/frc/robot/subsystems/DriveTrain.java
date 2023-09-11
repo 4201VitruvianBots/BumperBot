@@ -75,9 +75,9 @@ public class DriveTrain extends SubsystemBase {
     driveMotors[2].set(ControlMode.PercentOutput, rightOutput);
   }
 
-  public void setMotorArcadeDrive(double throttle, double turn) {
-  leftOutput = throttle + turn;
-  rightOutput = throttle - turn;
+  public void setMotorArcadeDrive(double throttle) {
+  leftOutput = throttle; 
+  rightOutput = throttle; 
 
   // Normalization
   magnitude = Math.max(Math.abs(leftOutput), Math.abs(rightOutput));

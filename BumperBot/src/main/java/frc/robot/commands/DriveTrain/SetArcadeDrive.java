@@ -43,16 +43,15 @@ public class SetArcadeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    joystickY = MathUtil.applyDeadband(m_throttle.getAsDouble(), 0.05);
+    joystickY = m_throttle.getAsDouble(); 
+    // joystickY = MathUtil.applyDeadband(m_throttle.getAsDouble(), 0.05);
     joystickX = MathUtil.applyDeadband(m_turn.getAsDouble(), 0.05);
-    // joystickY = (Math.abs(m_throttle.getAsDouble()) > 0.05) ? m_throttle.getAsDouble() : 0;
-    // joystickX = (Math.abs(m_turn.getAsDouble()) > 0.05) ? m_turn.getAsDouble() : 0;
 
     throttle = joystickY;
 
     turn = -0.60 * joystickX;
 
-    m_driveTrain.setMotorArcadeDrive(throttle, turn);
+    m_driveTrain.setMotorArcadeDrive(throttle);
   }
 
   // Called once the command ends or is interrupted.
